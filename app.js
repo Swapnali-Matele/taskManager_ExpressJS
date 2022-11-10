@@ -4,6 +4,11 @@ const app = express();
 const port = 3000;
 const tasks = require('./routes/tasks')
 require('dotenv').config()
+const notFound = require('./middlewear/notFound')
+const errorHandlerMidleware = require('./middlewear/error-handling')
+
+
+ 
 //routes
 
 app.use(express.json());
@@ -13,6 +18,8 @@ app.get('/hello', (req, res) =>{
 })
 
 app.use('/api/v1/tasks',tasks)
+app.use(notFound);
+app.use(errorHandlerMidleware);
 
 const start = async () => {
     try{
